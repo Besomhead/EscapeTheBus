@@ -3,19 +3,20 @@ package controller;
 import model.Bus;
 import model.Inspector;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.io.IOException;
+import java.io.File;
 
 public class Performer
 {
     public static final int DELTA = 10;
-    private Bus bus = new Bus();
+    private Bus bus;
+    private static final String FILE_NAME_BEG = "level";
+    private static final String FILE_EXT = ".xml";
 
-    public Performer() throws IOException
+    public Performer(int level)
     {
-
+        bus = ReadFile.readFile(new File(FILE_NAME_BEG + level + FILE_EXT));
     }
 
     public Bus getBus()

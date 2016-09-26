@@ -7,9 +7,9 @@ public class Player extends PlayingAreaElement implements Character
 {
     private static final String IMG_PATH = "img\\player.png";
 
-    public Player()
+    public Player(int x, int y)
     {
-        super(IMG_PATH, new Point(MIN_X + 3, MAX_Y - 5));
+        super(IMG_PATH, new Point(x, y));
     }
 
     public void moveX(int delta)

@@ -3,13 +3,15 @@ package view;
 import controller.InspectorMoving;
 import controller.Performer;
 import model.Inspector;
+import model.LuckyTicket;
+import model.PlayingAreaElement;
+import model.Seat;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -18,8 +20,10 @@ public class PlayWindow extends JDialog
     private JPanel informationPanel = new JPanel(new FlowLayout());
     private JPanel gamePanel = new GamePanel();
     private Performer performer;
+    private static int level;
 
-    public PlayWindow() throws IOException {
+    public PlayWindow()
+    {
         super();
         setTitle("Escape the Bus");
         setMinimumSize(new Dimension(1000, 700));
@@ -52,11 +56,8 @@ public class PlayWindow extends JDialog
         private Thread inspectorMoving;
 
         {
-            try {
-                performer = new Performer();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            level = 1;
+            performer = new Performer(level);
             gameTimer = new Timer();
             inspectorMoving = new Thread(new InspectorMoving(performer));
         }
@@ -100,8 +101,13 @@ public class PlayWindow extends JDialog
         {
             super.paint(g);
             g.drawImage(performer.getPlayerImg(), performer.getPlayerX(), performer.getPlayerY(), this);
-            for(Inspector inspector : performer.getBus().getInspectors())
-                g.drawImage(inspector.getImg(), inspector.getX(), inspector.getY(), this);
+            for(Inspector inspector : performer.getBus().getInspectors()) drawImg(inspector, g);
+            for(Seat seat : performer.getBus().getSeats()) drawImg(seat, g);
+        }
+
+        private void drawImg(PlayingAreaElement el, Graphics g)
+        {
+            g.drawImage(el.getImg(), el.getX(), el.getY(), this);
         }
     }
 }

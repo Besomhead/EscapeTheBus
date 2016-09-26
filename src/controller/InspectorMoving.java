@@ -2,7 +2,6 @@ package controller;
 
 import model.Inspector;
 
-import javax.swing.*;
 import java.awt.*;
 
 public class InspectorMoving implements Runnable
