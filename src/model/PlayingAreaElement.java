@@ -6,7 +6,7 @@ import java.awt.*;
 public class PlayingAreaElement
 {
     private Image img;
-    Point position;
+    private Point position;
 
     public PlayingAreaElement(String img_path, Point position)
     {
@@ -37,5 +37,10 @@ public class PlayingAreaElement
     public int getY()
     {
         return (int)position.getY();
+    }
+
+    public Point getPosition()
+    {
+        return position;
     }
 }

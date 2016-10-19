@@ -1,7 +1,7 @@
 package controller;
 
 import model.Inspector;
-
+import static controller.Performer.Side;
 import java.awt.*;
 
 public class InspectorMoving implements Runnable
@@ -32,7 +32,14 @@ public class InspectorMoving implements Runnable
 
     public void moveInspectors()
     {
+        Side noWay = null;
+
         for(Inspector inspector : performer.getBus().getInspectors())
-            inspector.move(new Point(performer.getPlayerX(), performer.getPlayerY()), Performer.DELTA);
+        {
+            if(!performer.seatCollision(inspector).isEmpty())
+                noWay = performer.whereIsSeat(inspector, performer.seatCollision(inspector));
+            inspector.move(new Point(performer.getPlayerX(), performer.getPlayerY()), Performer.DELTA, noWay);
+            noWay = null;
+        }
     }
 }

@@ -1,16 +1,21 @@
 package model;
 
-
 import java.awt.*;
 
-public class Seat implements ShowInformation
+public class Button implements ShowInformation
 {
-    private static final String IMG_PATH = "img\\seat.png";
+    private static final String ORIGIN_IMG_PATH = "img\\button.png";
+    private static final String PUSHED_IMG_PATH = "img\\pushed_button.png";
     private PlayingAreaElement playingAreaElement;
 
-    public Seat(int x, int y)
+    public Button(int x, int y)
     {
-        playingAreaElement = new PlayingAreaElement(IMG_PATH, new Point(x, y));
+        playingAreaElement = new PlayingAreaElement(ORIGIN_IMG_PATH, new Point(x, y));
+    }
+
+    public void pushButton()
+    {
+        playingAreaElement.loadImg(PUSHED_IMG_PATH);
     }
 
     public int getX()

@@ -1,29 +1,25 @@
 package model;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
-import static model.Character.*;
 
 public class Bus
 {
-    private static final int MAX_SEATS_IN_LINE = 15;
-    private static final int INSPECTORS_AMOUNT = 2;
-    private static final int SEATS_LINES_AMOUNT = 6;
-    private static final int DOORS_AMOUNT = 3;
-    private static final int STEP = 28;
-
     private Player player;
     private List<Inspector> inspectors;
     private List<Seat> seats;
     private List<Door> doors;
+    private LuckyTicket luckyTicket;
+    private Button button;
+    private static final int BUTTONS_TO_EXIT = 10;
 
     public Bus()
     {
-        inspectors = new ArrayList<>();
-        seats = new ArrayList<>();
-        doors = new ArrayList<>();
+        this.inspectors = new ArrayList<>();
+        this.seats = new ArrayList<>();
+        this.doors = new ArrayList<>();
+        this.luckyTicket = null;
+        this.button = null;
     }
 
     public void add(Player player)
@@ -41,55 +37,39 @@ public class Bus
         this.seats.add(seat);
     }
 
-    private void createInspectors(int amount)
+    public void add(Door door)
     {
-        Random inspectorRand = new Random();
-
-        for (int inspectorIndex = 0; inspectorIndex < amount; inspectorIndex++)
-            inspectors.add(new Inspector(inspectorRand.nextInt(MAX_X), inspectorRand.nextInt(MAX_Y)));
+        this.doors.add(door);
     }
 
-    private void createSeats(int amount)
+    public void add(LuckyTicket ticket)
     {
-        Random seatsRand = new Random();
+        this.luckyTicket = ticket;
+    }
 
-        int tempX;
-        int tempY;
-        int seatsCount;
-        int seatsLineIndex = 0;
+    public void add(Button button)
+    {
+        this.button = button;
+    }
 
-        while(seatsLineIndex < amount)
-        {
-            tempX = seatsRand.nextInt(MAX_X - 50);
-            tempY = seatsRand.nextInt(MAX_Y - 50);
-            seatsCount = seatsRand.nextInt(MAX_SEATS_IN_LINE);
+    public void removeLuckyTicket()
+    {
+        this.luckyTicket = null;
+    }
 
-            if(findSeat(new Point(tempX, tempY)))
-            {
-                tempX += STEP;
-                tempY += STEP;
-            }
+    public void removeButton()
+    {
+        this.button = null;
+    }
 
-            if (tempX + seatsCount * STEP < MAX_X - 50)
-            {
-                for (int seatIndex = 0; seatIndex < seatsCount; seatIndex++)
-                {
-                    seats.add(new Seat(tempX, tempY));
-                    tempX += STEP;
-                }
-                seatsLineIndex++;
-            }
-            else
-                if (tempY + seatsCount * STEP < MAX_Y - 50)
-                {
-                    for (int seatIndex = 0; seatIndex < seatsCount; seatIndex++)
-                    {
-                        seats.add(new Seat(tempX, tempY));
-                        tempY += STEP;
-                    }
-                    seatsLineIndex++;
-                }
-        }
+    public Button getButton()
+    {
+        return this.button;
+    }
+
+    public LuckyTicket getLuckyTicket()
+    {
+        return this.luckyTicket;
     }
 
     public Player getPlayer()
@@ -99,21 +79,21 @@ public class Bus
 
     public List<Inspector> getInspectors()
     {
-        return inspectors;
+        return new ArrayList<>(inspectors);
     }
 
     public List<Seat> getSeats()
     {
-        return seats;
+        return new ArrayList<>(seats);
     }
 
-    public boolean findSeat(Point point)
+    public List<Door> getDoors()
     {
-        Seat toCheck = new Seat((int)point.getX(), (int)point.getY());
+        return new ArrayList<>(doors);
+    }
 
-        for(Seat seat : seats)
-            if (seat.getRectangle().intersects(toCheck.getRectangle())) return true;
-
-        return false;
+    public int getButtonsToExit()
+    {
+        return BUTTONS_TO_EXIT;
     }
 }

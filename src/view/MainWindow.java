@@ -5,14 +5,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class MainWindow extends JFrame
-{
+public class MainWindow extends JFrame{
     private JButton startButton = new JButton("START");
     private JButton rulesButton = new JButton("RULES");
     private JButton exitButton = new JButton("EXIT");
 
-    public MainWindow()
-    {
+    public MainWindow(){
         super("Escape the Bus");
         setMinimumSize(new Dimension(550, 600));
         setMaximumSize(new Dimension(550, 600));
@@ -20,8 +18,7 @@ public class MainWindow extends JFrame
         addComponents();
     }
 
-    private void addComponents()
-    {
+    private void addComponents(){
         Box box = Box.createVerticalBox();
         JLabel gameNameLabel = new JLabel("Escape the Bus");
         gameNameLabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
@@ -40,39 +37,31 @@ public class MainWindow extends JFrame
         setContentPane(box);
     }
 
-    private void addListeners()
-    {
-        startButton.addActionListener(new ActionListener()
-        {
+    private void addListeners(){
+        startButton.addActionListener(new ActionListener(){
             @Override
-            public void actionPerformed(ActionEvent e)
-            {
+            public void actionPerformed(ActionEvent e){
                 PlayWindow playWindow = new PlayWindow();
             }
         });
 
-        rulesButton.addActionListener(new ActionListener()
-        {
+        rulesButton.addActionListener(new ActionListener(){
             @Override
-            public void actionPerformed(ActionEvent e)
-            {
+            public void actionPerformed(ActionEvent e){
                 RulesWindow rulesWindow = new RulesWindow();
             }
         });
 
-        exitButton.addActionListener(new ActionListener()
-        {
+        exitButton.addActionListener(new ActionListener(){
             @Override
-            public void actionPerformed(ActionEvent e)
-            {
+            public void actionPerformed(ActionEvent e){
                 dispose();
                 System.exit(0);
             }
         });
     }
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args){
         MainWindow mainWindow = new MainWindow();
         mainWindow.setVisible(true);
     }
