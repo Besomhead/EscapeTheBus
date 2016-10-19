@@ -4,11 +4,16 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class MainWindow extends JFrame{
-    private JButton startButton = new JButton("START");
-    private JButton rulesButton = new JButton("RULES");
-    private JButton exitButton = new JButton("EXIT");
+    public static final String START_IMG_PATH = "img\\start.jpg";
+    public static final String RULES_IMG_PATH = "img\\rules.jpg";
+    public static final String EXIT_IMG_PATH = "img\\exit.jpg";
+
+    private JButton startButton = new JButton(new ImageIcon(START_IMG_PATH));
+    private JButton rulesButton = new JButton(new ImageIcon(RULES_IMG_PATH));
+    private JButton exitButton = new JButton(new ImageIcon(EXIT_IMG_PATH));
 
     public MainWindow(){
         super("Escape the Bus");
@@ -19,11 +24,9 @@ public class MainWindow extends JFrame{
     }
 
     private void addComponents(){
+        ContentPanel mainPanel = new ContentPanel();
         Box box = Box.createVerticalBox();
-        JLabel gameNameLabel = new JLabel("Escape the Bus");
-        gameNameLabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
-        box.add(Box.createVerticalStrut(110));
-        box.add(gameNameLabel);
+        box.add(Box.createVerticalStrut(160));
         box.add(Box.createVerticalStrut(100));
         startButton.setMaximumSize(new Dimension(150, 50));
         rulesButton.setMaximumSize(new Dimension(150, 50));
@@ -34,7 +37,18 @@ public class MainWindow extends JFrame{
         box.add(rulesButton);
         box.add(Box.createVerticalStrut(10));
         box.add(exitButton);
-        setContentPane(box);
+        mainPanel.add(box);
+        setContentPane(mainPanel);
+    }
+
+    private class ContentPanel extends JPanel{
+
+        public static final String BACKGROUND_IMG_PATH = "img\\background.jpg";
+
+        public void paintComponent(Graphics g){
+            Image background = new ImageIcon(BACKGROUND_IMG_PATH).getImage();
+            g.drawImage(background, 0, 0, this);
+        }
     }
 
     private void addListeners(){
